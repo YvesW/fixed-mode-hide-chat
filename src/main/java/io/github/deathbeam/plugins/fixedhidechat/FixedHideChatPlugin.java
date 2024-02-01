@@ -149,6 +149,27 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 
 			// Hide/show chat messages
 			chatboxMessages.setHidden(!found);
+
+			//todo: works but needs specific original and new height because it's not the same as the bank/seed vault
+			// would need to be cleaned up for this to be implemented, cannot use the normal set size because the sizes are different
+			// KEEP IN MIND THAT YOU ALSO NEED TO FIX THIS ON SHUTDOWN THEN! CAUSE resetWidgets WON'T DO IT THEN PROBS!
+			//todo: can also check some extra interfaces like:
+			// all clan settings etc (member list, permissions, titles, like kinda everything and some stuff like events expands when more events are added)
+			// maybe cb tasks => would also have to set the parent height => see cb_achievements branch commit for more info!
+			// coll log or smth => does not work at all, whatever I tried
+			// GE history => does not work at all, whatever I tried
+			// toa board
+			// voting interface when there is another poll going cause it jumps
+			final Widget clanMemberWidget = client.getWidget(693, 1);
+			if (clanMemberWidget != null && !clanMemberWidget.isSelfHidden())
+			{
+				changeWidgetXY(clanMemberWidget, 6);
+				if (hideChat) {
+					changeWidgetHeight(331, 466, Objects.requireNonNull(client.getWidget(693, 1)));
+				} else {
+					changeWidgetHeight(466, 331, Objects.requireNonNull(client.getWidget(693, 1)));
+				}
+			}
 		}
 
 		hideChatPrevious = hideChat;
