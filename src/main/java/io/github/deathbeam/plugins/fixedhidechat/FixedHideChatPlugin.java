@@ -175,6 +175,17 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		hideChatPrevious = hideChat;
 	}
 
+	/* todo:
+	Regarding S163.1 - S163.5 (	But might have to move the dynamic children idk):
+	if you ever want to add split PM moving with it, you can check for the Y values of some interface stuff etc probs
+	original y = 0 => empty
+	1 above = 4
+	2 msg above = 17
+	3 above = 30
+	4 above = 43
+	5 above = 56
+	 */
+
 	@Subscribe
 	public void onMenuOptionClicked(final MenuOptionClicked event)
 	{
