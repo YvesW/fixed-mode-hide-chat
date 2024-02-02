@@ -59,6 +59,7 @@ public class FixedHideChatConstants
 	static final int EXPANDED_VIEW_HEIGHT = 476;
 	static final int BANK_X = 12;
 	static final int BANK_Y = 2;
+	static final int SEED_VAULT_X = 6;
 	// This is the VIEW_HEIGHT minus the BANK_Y minus 1 since there is a gap of 1 pixel at the bottom without the plugin.
 	static final int DEFAULT_VIEW_WIDGET_HEIGHT = DEFAULT_VIEW_HEIGHT - BANK_Y - 1;
 	static final int EXPANDED_VIEW_WIDGET_HEIGHT = EXPANDED_VIEW_HEIGHT - BANK_Y - 1;

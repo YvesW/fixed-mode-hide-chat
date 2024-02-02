@@ -5,6 +5,7 @@ import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.D
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_Y;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_WIDGET_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_WIDGET_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_MAIN;
@@ -121,7 +122,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		final Widget seedVaultWidget = client.getWidget(ComponentID.SEED_VAULT_INVENTORY_ITEM_CONTAINER);
 		if (seedVaultWidget != null && !seedVaultWidget.isSelfHidden())
 		{
-			changeWidgetXY(seedVaultWidget, 6);
+			changeWidgetXY(seedVaultWidget, SEED_VAULT_X);
 		}
 
 		if (!hideChat && config.resizeViewport())
