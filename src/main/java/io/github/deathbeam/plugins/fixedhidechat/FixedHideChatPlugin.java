@@ -87,7 +87,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if (!client.isResized() && e.getKeyCode() == config.hideChatHotkey().getKeyCode() && e.getModifiersEx() == config.hideChatHotkey().getModifiers() && !hideChat)
+		if (!client.isResized() && !hideChat && e.getKeyCode() == config.hideChatHotkey().getKeyCode() && e.getModifiersEx() == config.hideChatHotkey().getModifiers())
 		{
 			hideChat = true;
 			e.consume();
