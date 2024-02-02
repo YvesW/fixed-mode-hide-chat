@@ -55,6 +55,7 @@ public class FixedHideChatConstants
 		9
 	);
 
+	static final String configGroup = "FixedHideChat";
 	static final int DEFAULT_VIEW_HEIGHT = 334;
 	static final int EXPANDED_VIEW_HEIGHT = 476;
 	static final int BANK_X = 12;

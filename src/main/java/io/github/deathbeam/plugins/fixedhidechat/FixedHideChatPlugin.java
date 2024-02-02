@@ -1,5 +1,6 @@
 package io.github.deathbeam.plugins.fixedhidechat;
 
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.configGroup;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.AUTO_EXPAND_WIDGETS;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_HEIGHT;
@@ -23,6 +24,7 @@ import net.runelite.api.widgets.*;
 import net.runelite.client.callback.ClientThread;
 import net.runelite.client.config.*;
 import net.runelite.client.eventbus.Subscribe;
+import net.runelite.client.events.*;
 import net.runelite.client.input.KeyListener;
 import net.runelite.client.input.KeyManager;
 import net.runelite.client.plugins.Plugin;
@@ -50,10 +52,13 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	private int lastMenu = 0;
 	private boolean hideChat = true;
 	private boolean hideChatPrevious = hideChat;
+	private boolean resizeViewport;
+	private Keybind hideChatHotkey;
 
 	@Override
 	protected void startUp() throws Exception
 	{
+		updateConfig();
 		// Register listener
 		keyManager.registerKeyListener(this);
 	}
@@ -87,10 +92,18 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if (!client.isResized() && !hideChat && e.getKeyCode() == config.hideChatHotkey().getKeyCode() && e.getModifiersEx() == config.hideChatHotkey().getModifiers())
+		if (!client.isResized() && !hideChat && e.getKeyCode() == hideChatHotkey.getKeyCode() && e.getModifiersEx() == hideChatHotkey.getModifiers())
 		{
 			hideChat = true;
 			e.consume();
+		}
+	}
+
+	@Subscribe
+	public void onConfigChanged(final ConfigChanged event)
+	{
+		if (event.getGroup().equals(configGroup)) {
+			updateConfig();
 		}
 	}
 
@@ -125,7 +138,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 			changeWidgetXY(seedVaultWidget, SEED_VAULT_X);
 		}
 
-		if (!hideChat && config.resizeViewport())
+		if (!hideChat && resizeViewport)
 		{
 			setViewSizeTo(EXPANDED_VIEW_HEIGHT, DEFAULT_VIEW_HEIGHT);
 		} else	{
@@ -183,6 +196,12 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 			hideChat = false;
 			lastMenu = newMenu;
 		}
+	}
+
+	private void updateConfig()
+	{
+		resizeViewport = config.resizeViewport();
+		hideChatHotkey = config.hideChatHotkey();
 	}
 
 	private static void changeWidgetXY(Widget widget, int xPosition)
