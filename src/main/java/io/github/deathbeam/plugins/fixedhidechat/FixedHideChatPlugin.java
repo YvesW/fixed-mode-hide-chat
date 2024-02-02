@@ -107,7 +107,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		{
 			// call [clientscript,bankmain_init] because otherwise the tag tabs don't extend properly
 			// but don't call it every frame because then performance tanks
-			// Causes a very slight flicker of the tag tab above the swap button sadly when opening the bag without the chat hidden
+			// Causes a very slight flicker of the tag tab above the swap button sadly when opening the bank without the chat hidden
 			if (hideChatPrevious != hideChat)
 			{
 				client.createScriptEvent(bankWidget.getOnLoadListener())
