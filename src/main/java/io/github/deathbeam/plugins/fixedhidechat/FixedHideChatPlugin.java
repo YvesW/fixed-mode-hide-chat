@@ -2,15 +2,19 @@ package io.github.deathbeam.plugins.fixedhidechat;
 
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.configGroup;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.AUTO_EXPAND_WIDGETS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_LIKE_POSITION_WIDGETS;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_Y;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_X;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_WIDGET_HEIGHT;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_WIDGET_HEIGHT;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_BANK_WIDGET_HEIGHT;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_BANK_WIDGET_HEIGHT;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_POLL_WIDGET_HEIGHT;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_POLL_WIDGET_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_MAIN;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_WIDGETS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_BANK_WIDGETS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_POLL_WIDGETS;
 import java.awt.event.KeyEvent;
 import java.util.*;
 import javax.inject.Inject;
@@ -131,12 +135,8 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 			changeWidgetXY(bankWidget, BANK_X);
 		}
 
-		// The seed vault container sometimes moves offscreen on resize and quick inputs, workaround
-		final Widget seedVaultWidget = client.getWidget(ComponentID.SEED_VAULT_INVENTORY_ITEM_CONTAINER);
-		if (seedVaultWidget != null && !seedVaultWidget.isSelfHidden())
-		{
-			changeWidgetXY(seedVaultWidget, SEED_VAULT_X);
-		}
+		// A couple interfaces like to move offscreen on resize and quick inputs, workaround
+		changeSeedVaultLikePositionWidgetXY();
 
 		if (!hideChat && resizeViewport)
 		{
@@ -169,8 +169,13 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 
 			// Resize some widgets that might interfere with having expanded chat
 			setWidgetsSizeTo(
-				found ? EXPANDED_VIEW_WIDGET_HEIGHT : DEFAULT_VIEW_WIDGET_HEIGHT,
-				found ? DEFAULT_VIEW_WIDGET_HEIGHT : EXPANDED_VIEW_WIDGET_HEIGHT);
+				found ? EXPANDED_VIEW_BANK_WIDGET_HEIGHT : DEFAULT_VIEW_BANK_WIDGET_HEIGHT,
+				found ? DEFAULT_VIEW_BANK_WIDGET_HEIGHT : EXPANDED_VIEW_BANK_WIDGET_HEIGHT,
+				TO_CONTRACT_BANK_WIDGETS);
+			setWidgetsSizeTo(
+				found ? EXPANDED_VIEW_POLL_WIDGET_HEIGHT : DEFAULT_VIEW_POLL_WIDGET_HEIGHT,
+				found ? DEFAULT_VIEW_POLL_WIDGET_HEIGHT : EXPANDED_VIEW_POLL_WIDGET_HEIGHT,
+				TO_CONTRACT_POLL_WIDGETS);
 
 			// Hide/show chat messages
 			chatboxMessages.setHidden(!found);
@@ -204,7 +209,19 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		hideChatHotkey = config.hideChatHotkey();
 	}
 
-	private static void changeWidgetXY(Widget widget, int xPosition)
+	private void changeSeedVaultLikePositionWidgetXY() {
+		for (final Map.Entry<Integer, Integer> widgets : SEED_VAULT_LIKE_POSITION_WIDGETS)
+		{
+			final Widget widget = widgets.getValue() == 0 ? client.getWidget(widgets.getKey()) : client.getWidget(widgets.getKey(), widgets.getValue());
+
+			if (widget != null && !widget.isSelfHidden())
+			{
+				changeWidgetXY(widget, SEED_VAULT_X);
+			}
+		}
+	}
+
+	private static void changeWidgetXY(final Widget widget, int xPosition)
 	{
 		widget.setOriginalX(xPosition);
 		widget.setOriginalY(BANK_Y);
@@ -253,9 +270,9 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	private void setWidgetsSizeTo(final int originalHeight, final int newHeight)
+	private void setWidgetsSizeTo(final int originalHeight, final int newHeight, Set<Map.Entry<Integer, Integer>> widgetsMap)
 	{
-		for (final Map.Entry<Integer, Integer> widgets : TO_CONTRACT_WIDGETS)
+		for (final Map.Entry<Integer, Integer> widgets : widgetsMap)
 		{
 			final Widget widget = widgets.getValue() == 0 ? client.getWidget(widgets.getKey()) : client.getWidget(widgets.getKey(), widgets.getValue());
 			if (widget != null && !widget.isSelfHidden())
@@ -300,7 +317,8 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 
 		// Contract the view if it is expanded
 		setViewSizeTo(EXPANDED_VIEW_HEIGHT, DEFAULT_VIEW_HEIGHT);
-		setWidgetsSizeTo(EXPANDED_VIEW_WIDGET_HEIGHT, DEFAULT_VIEW_WIDGET_HEIGHT);
+		setWidgetsSizeTo(EXPANDED_VIEW_BANK_WIDGET_HEIGHT, DEFAULT_VIEW_BANK_WIDGET_HEIGHT, TO_CONTRACT_BANK_WIDGETS);
+		setWidgetsSizeTo(EXPANDED_VIEW_POLL_WIDGET_HEIGHT, DEFAULT_VIEW_POLL_WIDGET_HEIGHT, TO_CONTRACT_POLL_WIDGETS);
 
 		// Show the chat messages widget again
 		final Widget chatboxMessages = client.getWidget(ComponentID.CHATBOX_FRAME);

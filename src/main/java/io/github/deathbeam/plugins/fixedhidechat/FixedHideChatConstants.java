@@ -50,6 +50,26 @@ public class FixedHideChatConstants
 		0
 	);
 
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_POLL_VOTE = new AbstractMap.SimpleEntry<>(
+		345,
+		1
+	);
+
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_POLL_HISTORY = new AbstractMap.SimpleEntry<>(
+		310,
+		1
+	);
+
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CLAN_MEMBER_LIST = new AbstractMap.SimpleEntry<>(
+		693,
+		1
+	);
+
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CLAN_PERMISSIONS = new AbstractMap.SimpleEntry<>(
+		706,
+		1
+	);
+
 	static final Map.Entry<Integer, Integer>  FIXED_MAIN = new AbstractMap.SimpleEntry<>(
 		InterfaceID.FIXED_VIEWPORT,
 		9
@@ -62,8 +82,10 @@ public class FixedHideChatConstants
 	static final int BANK_Y = 2;
 	static final int SEED_VAULT_X = 6;
 	// This is the VIEW_HEIGHT minus the BANK_Y minus 1 since there is a gap of 1 pixel at the bottom without the plugin.
-	static final int DEFAULT_VIEW_WIDGET_HEIGHT = DEFAULT_VIEW_HEIGHT - BANK_Y - 1;
-	static final int EXPANDED_VIEW_WIDGET_HEIGHT = EXPANDED_VIEW_HEIGHT - BANK_Y - 1;
+	static final int DEFAULT_VIEW_BANK_WIDGET_HEIGHT = DEFAULT_VIEW_HEIGHT - BANK_Y - 1;
+	static final int EXPANDED_VIEW_BANK_WIDGET_HEIGHT = EXPANDED_VIEW_HEIGHT - BANK_Y - 1;
+	static final int DEFAULT_VIEW_POLL_WIDGET_HEIGHT = 324;
+	static final int EXPANDED_VIEW_POLL_WIDGET_HEIGHT = 466;
 
 	static final Set<Map.Entry<Integer, Integer>> AUTO_EXPAND_WIDGETS = ImmutableSet
 		.<Map.Entry<Integer, Integer>>builder()
@@ -75,9 +97,26 @@ public class FixedHideChatConstants
 		.add(CHATBOX_MESSAGES_DIALOG_SPRITE)
 		.build();
 
-	static final Set<Map.Entry<Integer, Integer>> TO_CONTRACT_WIDGETS = ImmutableSet
+	// These widgets are DEFAULT_VIEW_BANK_WIDGET_HEIGHT
+	static final Set<Map.Entry<Integer, Integer>> TO_CONTRACT_BANK_WIDGETS = ImmutableSet
 		.<Map.Entry<Integer, Integer>>builder()
 		.add(FIXED_VIEWPORT_BANK_POPUP_CONTAINER)
 		.add(FIXED_VIEWPORT_SEED_VAULT_INVENTORY_ITEM_CONTAINER)
+		.build();
+
+	// These widgets are DEFAULT_VIEW_POLL_WIDGET_HEIGHT
+	static final Set<Map.Entry<Integer, Integer>> TO_CONTRACT_POLL_WIDGETS = ImmutableSet
+		.<Map.Entry<Integer, Integer>>builder()
+		.add(FIXED_VIEWPORT_POLL_VOTE)
+		.add(FIXED_VIEWPORT_POLL_HISTORY)
+		.add(FIXED_VIEWPORT_CLAN_MEMBER_LIST)
+		.add(FIXED_VIEWPORT_CLAN_PERMISSIONS)
+		.build();
+
+	// These widgets use the SEED_VAULT_X and BANK_Y position
+	static final Set<Map.Entry<Integer, Integer>> SEED_VAULT_LIKE_POSITION_WIDGETS = ImmutableSet
+		.<Map.Entry<Integer, Integer>>builder()
+		.add(FIXED_VIEWPORT_SEED_VAULT_INVENTORY_ITEM_CONTAINER)
+		.addAll(TO_CONTRACT_POLL_WIDGETS)
 		.build();
 }
