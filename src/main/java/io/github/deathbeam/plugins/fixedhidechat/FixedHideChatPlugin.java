@@ -135,7 +135,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 			changeWidgetXY(bankWidget, BANK_X);
 		}
 
-		// A couple interfaces like to move offscreen on resize and quick inputs, workaround
+		// A couple interfaces like to move offscreen on resize and quick inputs or are just positioned incorrectly
 		changeSeedVaultLikePositionWidgetXY();
 
 		if (!hideChat && resizeViewport)
@@ -209,15 +209,21 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		hideChatHotkey = config.hideChatHotkey();
 	}
 
-	private void changeSeedVaultLikePositionWidgetXY() {
-		for (final Map.Entry<Integer, Integer> widgets : SEED_VAULT_LIKE_POSITION_WIDGETS)
+	private void changeSeedVaultLikePositionWidgetXY()
+	{
+		for (final Map.Entry<Integer, Integer> widget : SEED_VAULT_LIKE_POSITION_WIDGETS)
 		{
-			final Widget widget = widgets.getValue() == 0 ? client.getWidget(widgets.getKey()) : client.getWidget(widgets.getKey(), widgets.getValue());
+			changeWidgetXYConstants(widget, SEED_VAULT_X);
+		}
+	}
 
-			if (widget != null && !widget.isSelfHidden())
-			{
-				changeWidgetXY(widget, SEED_VAULT_X);
-			}
+	private void changeWidgetXYConstants(Map.Entry<Integer, Integer> widgetConstant, int xPosition)
+	{
+		final Widget widget = widgetConstant.getValue() == 0 ? client.getWidget(widgetConstant.getKey()) : client.getWidget(widgetConstant.getKey(), widgetConstant.getValue());
+
+		if (widget != null && !widget.isSelfHidden())
+		{
+			changeWidgetXY(widget, xPosition);
 		}
 	}
 
