@@ -70,6 +70,21 @@ public class FixedHideChatConstants
 		1
 	);
 
+	static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CLAN_SETTINGS = new AbstractMap.SimpleEntry<>(
+		690,
+		1
+	);
+
+	static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CLAN_APPLICANTS = new AbstractMap.SimpleEntry<>(
+		699,
+		1
+	);
+
+	static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CLAN_BANS = new AbstractMap.SimpleEntry<>(
+		689,
+		1
+	);
+
 	static final Map.Entry<Integer, Integer>  FIXED_MAIN = new AbstractMap.SimpleEntry<>(
 		InterfaceID.FIXED_VIEWPORT,
 		9
@@ -81,6 +96,10 @@ public class FixedHideChatConstants
 	static final int BANK_X = 12;
 	static final int BANK_Y = 2;
 	static final int SEED_VAULT_X = 6;
+	static final int CLAN_SETTINGS_X = 26;
+	static final int CLAN_APPLICANTS_X = 38;
+	static final int CLAN_BANS_X = 18;
+
 	// This is the VIEW_HEIGHT minus the BANK_Y minus 1 since there is a gap of 1 pixel at the bottom without the plugin.
 	static final int DEFAULT_VIEW_BANK_WIDGET_HEIGHT = DEFAULT_VIEW_HEIGHT - BANK_Y - 1;
 	static final int EXPANDED_VIEW_BANK_WIDGET_HEIGHT = EXPANDED_VIEW_HEIGHT - BANK_Y - 1;

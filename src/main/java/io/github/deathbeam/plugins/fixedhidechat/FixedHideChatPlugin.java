@@ -8,10 +8,16 @@ import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.E
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_Y;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_X;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CLAN_SETTINGS_X;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CLAN_APPLICANTS_X;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CLAN_BANS_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_BANK_WIDGET_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_BANK_WIDGET_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_POLL_WIDGET_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_POLL_WIDGET_HEIGHT;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_VIEWPORT_CLAN_SETTINGS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_VIEWPORT_CLAN_APPLICANTS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_VIEWPORT_CLAN_BANS;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_MAIN;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_BANK_WIDGETS;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_POLL_WIDGETS;
@@ -137,6 +143,9 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 
 		// A couple interfaces like to move offscreen on resize and quick inputs or are just positioned incorrectly
 		changeSeedVaultLikePositionWidgetXY();
+		changeWidgetXYConstants(FIXED_VIEWPORT_CLAN_SETTINGS, CLAN_SETTINGS_X);
+		changeWidgetXYConstants(FIXED_VIEWPORT_CLAN_APPLICANTS, CLAN_APPLICANTS_X);
+		changeWidgetXYConstants(FIXED_VIEWPORT_CLAN_BANS, CLAN_BANS_X);
 
 		if (!hideChat && resizeViewport)
 		{
