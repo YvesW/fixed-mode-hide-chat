@@ -70,6 +70,26 @@ public class FixedHideChatConstants
 		1
 	);
 
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CB_ACHIEVEMENTS_OVERVIEW = new AbstractMap.SimpleEntry<>(
+		717,
+		1
+	);
+
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CB_ACHIEVEMENTS_TASKS = new AbstractMap.SimpleEntry<>(
+		715,
+		1
+	);
+
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CB_ACHIEVEMENTS_BOSSES = new AbstractMap.SimpleEntry<>(
+		716,
+		1
+	);
+
+	private static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CB_ACHIEVEMENTS_REWARDS = new AbstractMap.SimpleEntry<>(
+		714,
+		1
+	);
+
 	static final Map.Entry<Integer, Integer>  FIXED_VIEWPORT_CLAN_SETTINGS = new AbstractMap.SimpleEntry<>(
 		690,
 		1
@@ -96,6 +116,7 @@ public class FixedHideChatConstants
 	static final int BANK_X = 12;
 	static final int BANK_Y = 2;
 	static final int SEED_VAULT_X = 6;
+	static final int CB_ACHIEVEMENTS_X = 16;
 	static final int CLAN_SETTINGS_X = 26;
 	static final int CLAN_APPLICANTS_X = 38;
 	static final int CLAN_BANS_X = 18;
@@ -105,6 +126,8 @@ public class FixedHideChatConstants
 	static final int EXPANDED_VIEW_BANK_WIDGET_HEIGHT = EXPANDED_VIEW_HEIGHT - BANK_Y - 1;
 	static final int DEFAULT_VIEW_POLL_WIDGET_HEIGHT = 324;
 	static final int EXPANDED_VIEW_POLL_WIDGET_HEIGHT = 466;
+	static final int DEFAULT_VIEW_CB_ACHIEVEMENTS_WIDGET_HEIGHT = 324; //todo: change these 2
+	static final int EXPANDED_VIEW_CB_ACHIEVEMENTS_WIDGET_HEIGHT = 466;
 
 	static final Set<Map.Entry<Integer, Integer>> AUTO_EXPAND_WIDGETS = ImmutableSet
 		.<Map.Entry<Integer, Integer>>builder()
@@ -137,5 +160,14 @@ public class FixedHideChatConstants
 		.<Map.Entry<Integer, Integer>>builder()
 		.add(FIXED_VIEWPORT_SEED_VAULT_INVENTORY_ITEM_CONTAINER)
 		.addAll(TO_CONTRACT_POLL_WIDGETS)
+		.build();
+
+	// These widgets use the DEFAULT_VIEW_CB_ACHIEVEMENTS_WIDGET_HEIGHT and CB_ACHIEVEMENTS_X
+	static final Set<Map.Entry<Integer, Integer>> CB_ACHIEVEMENTS_LIKE_WIDGETS = ImmutableSet
+		.<Map.Entry<Integer, Integer>>builder()
+		.add(FIXED_VIEWPORT_CB_ACHIEVEMENTS_OVERVIEW)
+		.add(FIXED_VIEWPORT_CB_ACHIEVEMENTS_TASKS)
+		//.add(FIXED_VIEWPORT_CB_ACHIEVEMENTS_BOSSES)
+		//.add(FIXED_VIEWPORT_CB_ACHIEVEMENTS_REWARDS)
 		.build();
 }

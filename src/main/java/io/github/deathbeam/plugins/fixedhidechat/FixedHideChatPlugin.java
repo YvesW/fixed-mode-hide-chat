@@ -2,12 +2,12 @@ package io.github.deathbeam.plugins.fixedhidechat;
 
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.configGroup;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.AUTO_EXPAND_WIDGETS;
-import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_LIKE_POSITION_WIDGETS;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.DEFAULT_VIEW_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.EXPANDED_VIEW_HEIGHT;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.BANK_Y;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_X;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CB_ACHIEVEMENTS_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CLAN_SETTINGS_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CLAN_APPLICANTS_X;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CLAN_BANS_X;
@@ -21,6 +21,8 @@ import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.F
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.FIXED_MAIN;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_BANK_WIDGETS;
 import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.TO_CONTRACT_POLL_WIDGETS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.SEED_VAULT_LIKE_POSITION_WIDGETS;
+import static io.github.deathbeam.plugins.fixedhidechat.FixedHideChatConstants.CB_ACHIEVEMENTS_LIKE_WIDGETS;
 import java.awt.event.KeyEvent;
 import java.util.*;
 import javax.inject.Inject;
@@ -142,7 +144,8 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		}
 
 		// A couple interfaces like to move offscreen on resize and quick inputs or are just positioned incorrectly
-		changeSeedVaultLikePositionWidgetXY();
+		changeSetPositionWidgetXY(SEED_VAULT_LIKE_POSITION_WIDGETS, SEED_VAULT_X);
+		changeSetPositionWidgetXY(CB_ACHIEVEMENTS_LIKE_WIDGETS, CB_ACHIEVEMENTS_X);
 		changeWidgetXYConstants(FIXED_VIEWPORT_CLAN_SETTINGS, CLAN_SETTINGS_X);
 		changeWidgetXYConstants(FIXED_VIEWPORT_CLAN_APPLICANTS, CLAN_APPLICANTS_X);
 		changeWidgetXYConstants(FIXED_VIEWPORT_CLAN_BANS, CLAN_BANS_X);
@@ -237,11 +240,11 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	private void changeSeedVaultLikePositionWidgetXY()
+	private void changeSetPositionWidgetXY(Set<Map.Entry<Integer, Integer>> widgetSet, int xPosition)
 	{
-		for (final Map.Entry<Integer, Integer> widget : SEED_VAULT_LIKE_POSITION_WIDGETS)
+		for (final Map.Entry<Integer, Integer> widget : widgetSet)
 		{
-			changeWidgetXYConstants(widget, SEED_VAULT_X);
+			changeWidgetXYConstants(widget, xPosition);
 		}
 	}
 
