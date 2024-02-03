@@ -218,12 +218,13 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		hideChatHotkey = config.hideChatHotkey();
 	}
 
-	private void changeSeedVaultLikePositionWidgetXY()
+	private static void changeWidgetXY(final Widget widget, int xPosition)
 	{
-		for (final Map.Entry<Integer, Integer> widget : SEED_VAULT_LIKE_POSITION_WIDGETS)
-		{
-			changeWidgetXYConstants(widget, SEED_VAULT_X);
-		}
+		widget.setOriginalX(xPosition);
+		widget.setOriginalY(BANK_Y);
+		widget.setXPositionMode(WidgetPositionMode.ABSOLUTE_LEFT);
+		widget.setYPositionMode(WidgetPositionMode.ABSOLUTE_TOP);
+		widget.revalidateScroll();
 	}
 
 	private void changeWidgetXYConstants(Map.Entry<Integer, Integer> widgetConstant, int xPosition)
@@ -236,13 +237,12 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 		}
 	}
 
-	private static void changeWidgetXY(final Widget widget, int xPosition)
+	private void changeSeedVaultLikePositionWidgetXY()
 	{
-		widget.setOriginalX(xPosition);
-		widget.setOriginalY(BANK_Y);
-		widget.setXPositionMode(WidgetPositionMode.ABSOLUTE_LEFT);
-		widget.setYPositionMode(WidgetPositionMode.ABSOLUTE_TOP);
-		widget.revalidateScroll();
+		for (final Map.Entry<Integer, Integer> widget : SEED_VAULT_LIKE_POSITION_WIDGETS)
+		{
+			changeWidgetXYConstants(widget, SEED_VAULT_X);
+		}
 	}
 
 	private static void setWidgetHeight(final Widget widget, final int height)
