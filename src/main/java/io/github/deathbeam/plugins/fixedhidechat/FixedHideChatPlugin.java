@@ -64,6 +64,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	private boolean hideChatPrevious = hideChat;
 	private boolean resizeViewport;
 	private Keybind hideChatHotkey;
+	private ChatHotkeyBehavior chatHotkeyBehavior;
 
 	@Override
 	protected void startUp() throws Exception
@@ -90,21 +91,30 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	@Override
 	public void keyTyped(KeyEvent e)
 	{
-		keyReleased(e);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e)
 	{
-		keyReleased(e);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e)
 	{
-		if (!client.isResized() && !hideChat && e.getKeyCode() == hideChatHotkey.getKeyCode() && e.getModifiersEx() == hideChatHotkey.getModifiers())
+		if (!client.isResized() && e.getKeyCode() == hideChatHotkey.getKeyCode() && e.getModifiersEx() == hideChatHotkey.getModifiers())
 		{
-			hideChat = true;
+			switch (chatHotkeyBehavior)
+			{
+				case HIDE:
+					hideChat = true;
+					break;
+				case SHOW:
+					hideChat = false;
+					break;
+				case TOGGLE:
+					hideChat = !hideChat;
+					break;
+			}
 			e.consume();
 		}
 	}
@@ -216,6 +226,7 @@ public class FixedHideChatPlugin extends Plugin implements KeyListener
 	{
 		resizeViewport = config.resizeViewport();
 		hideChatHotkey = config.hideChatHotkey();
+		chatHotkeyBehavior = config.chatHotkeyBehavior();
 	}
 
 	private static void changeWidgetXY(final Widget widget, int xPosition)
